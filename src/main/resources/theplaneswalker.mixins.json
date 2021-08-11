@@ -1,0 +1,36 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fenrir.theplaneswalker.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "AbstractBlockMixin",
+    "AbstractBlockStateMixin",
+    "AdmireItemTaskMixin",
+    "AnvilScreenHandlerMixin",
+    "EntityMixin",
+    "ExperienceOrbEntityMixin",
+    "GolemEntityMixin",
+    "LivingEntityMixin",
+    "MilkBucketItemMixin",
+    "PersistentProjectileEntityMixin",
+    "PiglinBrainMixin",
+    "PlayerEntityMixin",
+    "PlayerEntityMixin2",
+    "ProjectileEntityMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "ServerPlayerNetworkHandlerMixin",
+    "VillagerEntityMixin"
+  ],
+  "client": [
+    "CameraMixin",
+    "EntityRenderDispatcherMixin",
+    "InGameHudMixin",
+    "MinecraftClientMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

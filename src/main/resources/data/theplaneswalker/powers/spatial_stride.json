@@ -1,0 +1,107 @@
+{
+  "type": "origins:multiple",
+  "resource": {
+    "type": "origins:resource",
+    "min": 0,
+    "max": 5,
+    "start_value": 5,
+    "min_action": {
+      "type": "origins:and",
+      "actions": [
+        {
+          "type": "origins:change_resource",
+          "resource": "theplaneswalker:spatial_stride_resource",
+          "change": 5
+        },
+        {
+          "type": "origins:trigger_cooldown",
+          "power": "theplaneswalker:spatial_stride_cooldown"
+        }
+      ]
+    },
+    "onhurt": {
+      "type": "origins:self_action_when_hit",
+      "cooldown": 0,
+      "entity_action": {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:spatial_stride_resource",
+            "change": 5
+          },
+          {
+            "type": "origins:trigger_cooldown",
+            "power": "theplaneswalker:spatial_stride_cooldown"
+          }
+        ]
+      }
+    },
+    "hud_render": {
+      "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
+      "bar_index": 2,
+      "should_render": true,
+      "condition": {
+        "type": "origins:resource",
+        "resource": "theplaneswalker:spatial_stride_resource",
+        "comparison": "<",
+        "compare_to": 5
+      }
+    }
+  },
+  "sync": {
+    "type": "origins:action_over_time",
+    "interval": 2,
+    "condition": {
+      "type": "origins:or",
+      "conditions": [
+        {
+          "type": "theplaneswalker:is_flying"
+        },
+        {
+          "type": "origins:resource",
+          "resource": "theplaneswalker:spatial_stride_resource",
+          "comparison": "<",
+          "compare_to": 5
+        }
+      ]
+    },
+    "entity_action": {
+      "type": "origins:if_else",
+      "if_action": {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:spatial_stride_resource",
+            "change": -1
+          },
+          {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:planewalk_onoff",
+            "change": -1
+          }
+        ]
+      },
+      "else_action": {
+        "type": "origins:change_resource",
+        "resource": "theplaneswalker:spatial_stride_resource",
+        "change": -5
+      },
+      "condition": {
+        "type": "theplaneswalker:is_flying"
+      }
+    }
+  },
+  "flying": {
+    "type": "origins:creative_flight",
+    "condition": {
+      "type": "origins:resource",
+      "resource": "theplaneswalker:spatial_stride_cooldown",
+      "comparison": "==",
+      "compare_to": 0
+    }
+  },
+  "name": "Spatial Stride",
+  "description": "(6s CD) User can have creative flight for 0.5 seconds. Fall distance is not reset."
+}

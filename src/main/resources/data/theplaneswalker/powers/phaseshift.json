@@ -1,0 +1,225 @@
+{
+  "type": "origins:multiple",
+  "onoff": {
+    "type": "origins:resource",
+    "min": 0,
+    "max": 1,
+    "hud_render": {
+      "should_render": false
+    }
+  },
+  "bar": {
+    "type": "origins:resource",
+    "min": 0,
+    "start_value": 80,
+    "max": 80,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
+      "bar_index": 4,
+      "condition": {
+        "type": "origins:resource",
+        "resource": "theplaneswalker:phaseshift_bar",
+        "comparison": "<",
+        "compare_to": 80
+      }
+    },
+    "min_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:phaseshift_onoff",
+      "change": -1
+    }
+  },
+  "resource": {
+    "type": "origins:resource",
+    "min": 0,
+    "max": 24,
+    "hud_render": {
+      "should_render": false
+    }
+  },
+  "sync": {
+    "type": "origins:action_over_time",
+    "interval": 5,
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:phaseshift_resource",
+      "change": -1
+    },
+    "condition": {
+      "type": "origins:resource",
+      "resource": "theplaneswalker:phaseshift_onoff",
+      "comparison": "==",
+      "compare_to": 0
+    }
+  },
+  "onhurt_a": {
+    "type": "origins:self_action_when_hit",
+    "cooldown": 0,
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:phaseshift_resource",
+      "change": 12
+    },
+    "damage_condition": {
+      "type": "origins:attacker"
+    }
+  },
+  "onhurt_b": {
+    "type": "origins:self_action_when_hit",
+    "cooldown": 0,
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:phaseshift_onoff",
+      "change": -1
+    }
+  },
+  "add": {
+    "type": "origins:action_over_time",
+    "interval": 5,
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:phaseshift_bar",
+      "change": 4
+    },
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "origins:resource",
+          "resource": "theplaneswalker:phaseshift_onoff",
+          "comparison": "==",
+          "compare_to": 0
+        },
+        {
+          "type": "origins:resource",
+          "resource": "theplaneswalker:phaseshift_resource",
+          "comparison": "==",
+          "compare_to": 0
+        }
+      ]
+    }
+  },
+  "sub": {
+    "type": "origins:action_over_time",
+    "interval": 5,
+    "entity_action": {
+      "type": "origins:if_else_list",
+      "actions": [
+        {
+          "condition": {
+            "type": "origins:using_item"
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:phaseshift_bar",
+            "change": -12
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:sprinting"
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:phaseshift_bar",
+            "change": -6
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:sprinting",
+            "inverted": true
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:phaseshift_bar",
+            "change": -3
+          }
+        }
+      ]
+    },
+    "condition": {
+      "type": "origins:resource",
+      "resource": "theplaneswalker:phaseshift_onoff",
+      "comparison": "==",
+      "compare_to": 1
+    }
+  },
+  "use": {
+    "type": "origins:active_self",
+    "cooldown": 0,
+    "hud_render": {
+      "should_render": false
+    },
+    "entity_action": {
+      "type": "origins:if_else_list",
+      "actions": [
+        {
+          "condition": {
+            "type": "origins:resource",
+            "resource": "theplaneswalker:planewalk_onoff",
+            "comparison": "==",
+            "compare_to": 1
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:planewalk_onoff",
+            "change": -1
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:resource",
+            "resource": "theplaneswalker:phaseshift_onoff",
+            "comparison": "==",
+            "compare_to": 1
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:phaseshift_onoff",
+            "change": -1
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:resource",
+            "resource": "theplaneswalker:phaseshift_bar",
+            "comparison": ">",
+            "compare_to": 0
+          },
+          "action": {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "theplaneswalker:phaseshift_onoff",
+                "change": 1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "theplaneswalker:phaseshift_resource",
+                "change": 24
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "condition": {
+      "type": "origins:sneaking",
+      "inverted": true
+    }
+  },
+  "drain": {
+    "type": "origins:simple",
+    "condition": {
+      "type": "origins:resource",
+      "resource": "theplaneswalker:phaseshift_onoff",
+      "comparison": "==",
+      "compare_to": 1
+    }
+  },
+  "name": "Phaseshift",
+  "description": "Main key while not sneaking. While active the user is intangible to other entities and vice versa."
+}

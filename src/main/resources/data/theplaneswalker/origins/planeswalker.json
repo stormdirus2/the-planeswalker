@@ -1,0 +1,27 @@
+{
+  "name": "Planeswalker",
+  "description": "A race of space-time manipulators who were trapped in the Void long ago and recently escaped.",
+  "powers": [
+    "theplaneswalker:planewalk",
+    "theplaneswalker:phaseshift",
+    "theplaneswalker:phaseshift_mob",
+    "theplaneswalker:phaseshift_shader",
+    "theplaneswalker:dimensional_rift",
+    "theplaneswalker:positional_anchor",
+    "theplaneswalker:spatial_stride_cooldown",
+    "theplaneswalker:spatial_stride_worldchange",
+    "theplaneswalker:spatial_stride",
+    "theplaneswalker:clairvoyance",
+    "theplaneswalker:tarnished_reputation",
+    "theplaneswalker:malformed_soul",
+    "origins:carnivore",
+    "theplaneswalker:corrupted_blood",
+    "theplaneswalker:insomniac",
+    "theplaneswalker:overspecialization"
+  ],
+  "order": 2,
+  "icon": {
+    "item": "theplaneswalker:planeswalker_sigil"
+  },
+  "impact": 2
+}

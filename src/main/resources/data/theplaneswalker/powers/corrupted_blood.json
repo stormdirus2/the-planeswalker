@@ -1,0 +1,19 @@
+{
+  "type": "origins:effect_immunity",
+  "effects": [
+    "minecraft:strength",
+    "minecraft:speed",
+    "minecraft:haste",
+    "minecraft:instant_health",
+    "minecraft:regeneration",
+    "minecraft:jump_boost",
+    "minecraft:slow_falling",
+    "minecraft:health_boost",
+    "minecraft:absorption",
+    "minecraft:luck",
+    "minecraft:dolphins_grace",
+    "minecraft:strength"
+  ],
+  "name": "Corrupted Blood",
+  "description": "You are immune to most beneficial vanilla effects. Milk does not cure potion effects."
+}

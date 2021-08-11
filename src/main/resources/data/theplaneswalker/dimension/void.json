@@ -1,0 +1,19 @@
+{
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "structures": {
+        "structures": {}
+      },
+      "layers": [
+        {
+          "block": "minecraft:barrier",
+          "height": 1
+        }
+      ],
+      "biome": "theplaneswalker:infinite_void",
+      "sea_level": 2
+    }
+  },
+  "type": "theplaneswalker:infinite_void"
+}

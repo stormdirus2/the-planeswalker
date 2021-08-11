@@ -1,0 +1,18 @@
+{
+  "type": "theplaneswalker:dimension_changed",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:change_resource",
+        "resource": "theplaneswalker:spatial_stride_resource",
+        "change": 5
+      },
+      {
+        "type": "origins:trigger_cooldown",
+        "power": "theplaneswalker:spatial_stride_cooldown"
+      }
+    ]
+  },
+  "hidden": true
+}
