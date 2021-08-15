@@ -5,7 +5,7 @@
   "name": "Origins: The Planeswalker",
   "description": "A space-time user origin, done right.",
   "authors": [
-    "Fenrir"
+    "SciRave"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fenrir.theplaneswalker.ThePlaneswalker"
+      "net.scirave.theplaneswalker.ThePlaneswalker"
     ]
   },
   "mixins": [

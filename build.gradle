@@ -1,14 +1,17 @@
+import java.time.Year
+
 plugins {
     id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'org.cadixdev.licenser' version '0.6.1'
     id 'maven-publish'
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+group = rootProject.maven_group
+archivesBaseName = rootProject.name
+
 
 repositories {
     maven {
@@ -73,18 +76,26 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
-    }
+    from("LICENSE")
 }
 
+license {
+
+    header = rootProject.file("LICENSE_HEADER")
+
+    include '**/*.java'
+
+    ext {
+        year = Year.now()
+        displayName = rootProject.display_name
+        owners = rootProject.owners
+    }
+
+}
 // configure the maven publication
 publishing {
     publications {
