@@ -3,15 +3,15 @@
   "resource": {
     "type": "origins:resource",
     "min": 0,
-    "max": 5,
-    "start_value": 5,
+    "max": 7,
+    "start_value": 7,
     "min_action": {
       "type": "origins:and",
       "actions": [
         {
           "type": "origins:change_resource",
           "resource": "theplaneswalker:spatial_stride_resource",
-          "change": 5
+          "change": 7
         },
         {
           "type": "origins:trigger_cooldown",
@@ -28,7 +28,7 @@
           {
             "type": "origins:change_resource",
             "resource": "theplaneswalker:spatial_stride_resource",
-            "change": 5
+            "change": 7
           },
           {
             "type": "origins:trigger_cooldown",
@@ -45,13 +45,13 @@
         "type": "origins:resource",
         "resource": "theplaneswalker:spatial_stride_resource",
         "comparison": "<",
-        "compare_to": 5
+        "compare_to": 7
       }
     }
   },
   "sync": {
     "type": "origins:action_over_time",
-    "interval": 2,
+    "interval": 1,
     "condition": {
       "type": "origins:or",
       "conditions": [
@@ -62,31 +62,21 @@
           "type": "origins:resource",
           "resource": "theplaneswalker:spatial_stride_resource",
           "comparison": "<",
-          "compare_to": 5
+          "compare_to": 7
         }
       ]
     },
     "entity_action": {
       "type": "origins:if_else",
       "if_action": {
-        "type": "origins:and",
-        "actions": [
-          {
-            "type": "origins:change_resource",
-            "resource": "theplaneswalker:spatial_stride_resource",
-            "change": -1
-          },
-          {
-            "type": "origins:change_resource",
-            "resource": "theplaneswalker:planewalk_onoff",
-            "change": -1
-          }
-        ]
+        "type": "origins:change_resource",
+        "resource": "theplaneswalker:spatial_stride_resource",
+        "change": -1
       },
       "else_action": {
         "type": "origins:change_resource",
         "resource": "theplaneswalker:spatial_stride_resource",
-        "change": -5
+        "change": -7
       },
       "condition": {
         "type": "theplaneswalker:is_flying"
@@ -103,5 +93,5 @@
     }
   },
   "name": "Spatial Stride",
-  "description": "(6s CD) User can have creative flight for 0.5 seconds. Fall distance is not reset."
+  "description": "(4s CD) User can have creative flight for 0.35 seconds. Fall distance is not reset."
 }

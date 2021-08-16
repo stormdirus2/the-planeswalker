@@ -6,7 +6,7 @@
       {
         "type": "origins:change_resource",
         "resource": "theplaneswalker:spatial_stride_resource",
-        "change": 5
+        "change": 7
       },
       {
         "type": "origins:trigger_cooldown",

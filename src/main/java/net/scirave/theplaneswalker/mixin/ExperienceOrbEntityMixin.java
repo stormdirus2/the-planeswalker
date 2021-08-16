@@ -17,6 +17,7 @@
 
 package net.scirave.theplaneswalker.mixin;
 
+import net.minecraft.entity.player.HungerManager;
 import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -33,18 +34,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 
 @Mixin(ExperienceOrbEntity.class)
-public class ExperienceOrbEntityMixin {
+public abstract class ExperienceOrbEntityMixin {
 
 
     @Shadow
     private PlayerEntity target;
 
+    @Shadow public abstract int getExperienceAmount();
+
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;expensiveUpdate()V", shift = At.Shift.AFTER))
     public void noTarget(CallbackInfo ci) {
-        if (this.target != null && TCPowers.MALFORMED_SOUL.isActive(this.target)) {
-            Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, this.target, ItemStack::isDamaged);
-            if (entry == null) {
-                this.target = null;
+        if (this.target != null && TCPowers.SOULFOOD.isActive(this.target)) {
+            if (TCPowers.SOULFOOD.isActive(target)) {
+                HungerManager hungerManager = target.getHungerManager();
+                if (hungerManager.getFoodLevel() == 20 && hungerManager.getSaturationLevel() == 20) {
+                    Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, this.target, ItemStack::isDamaged);
+                    if (entry == null) {
+                        this.target = null;
+                    }
+                }
             }
         }
     }
@@ -53,11 +61,16 @@ public class ExperienceOrbEntityMixin {
     @Inject(method = "onPlayerCollision", at = @At("HEAD"), cancellable = true)
     public void repairCheck(PlayerEntity player, CallbackInfo ci) {
         if (!player.world.isClient()) {
-            if (TCPowers.MALFORMED_SOUL.isActive(player)) {
-                Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged);
-                if (entry == null) {
-                    ci.cancel();
+            if (TCPowers.SOULFOOD.isActive(player)) {
+                HungerManager hungerManager = player.getHungerManager();
+                if (hungerManager.getFoodLevel() == 20 && hungerManager.getSaturationLevel() == 20) {
+                    Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged);
+                    if (entry == null) {
+                        ci.cancel();
+                        return;
+                    }
                 }
+                hungerManager.add(getExperienceAmount(),0.6F);
             }
         }
     }

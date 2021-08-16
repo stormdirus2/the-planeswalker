@@ -24,6 +24,7 @@ import io.github.apace100.apoli.power.VariableIntPower;
 import io.github.apace100.apoli.power.factory.action.ActionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
+import net.minecraft.util.math.BlockPos;
 import net.scirave.theplaneswalker.ThePlaneswalker;
 import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
 import net.scirave.theplaneswalker.helpers.TeleportHelper;
@@ -42,28 +43,31 @@ public class TCEntityActions {
 
 
     public static void initialization() {
-        register(new ActionFactory<>(new Identifier(ThePlaneswalker.MODID, "switch_dimension"), new SerializableData().add("dimension", ApoliDataTypes.POWER_TYPE),
+        register(new ActionFactory<>(new Identifier(ThePlaneswalker.MODID, "switch_dimension"), new SerializableData().add("dimension", ApoliDataTypes.POWER_TYPE).add("position", ApoliDataTypes.POWER_TYPE),
                 (data, entity) -> {
                     if (entity instanceof ServerPlayerEntity player) {
                         PowerHolderComponent component = PowerHolderComponent.KEY.get(player);
                         DimensionPower power = (DimensionPower) component.getPower((PowerType<?>) data.get("dimension"));
+                        power.updateWorld((ServerWorld) player.world);
+                        PositionPower position = (PositionPower) component.getPower((PowerType<?>) data.get("position"));
+                        BlockPos pos = position.pos;
                         power.updateWorld((ServerWorld) player.world);
                         double focusScale = power.worldFocus.getDimension().getCoordinateScale();
                         double lastScale = power.lastWorld.getDimension().getCoordinateScale();
                         double fraction;
                         if (entity.world == power.worldFocus) {
                             fraction = focusScale / lastScale;
-                            Integer level = TeleportHelper.safeSpawn(power.lastWorld, (int) (player.getBlockX() * fraction), (int) (player.getBlockZ() * fraction));
+                            Integer level = TeleportHelper.safeSpawn(power.lastWorld, (int) (pos.getX() * fraction), (int) (pos.getZ() * fraction));
                             if (level != null) {
-                                player.teleport(power.lastWorld, (int) (player.getBlockX() * fraction) + 0.5, level, (int) (player.getBlockZ() * fraction) + 0.5, player.getYaw(), player.getPitch());
+                                player.teleport(power.lastWorld, (int) (pos.getX() * fraction) + 0.5, level, (int) (pos.getZ() * fraction) + 0.5, player.getYaw(), player.getPitch());
                                 player.fallDistance = 0;
                                 player.onTeleportationDone();
                             }
                         } else {
                             fraction = lastScale / focusScale;
-                            Integer level = TeleportHelper.safeSpawn(power.worldFocus, (int) (player.getBlockX() * fraction), (int) (player.getBlockZ() * fraction));
+                            Integer level = TeleportHelper.safeSpawn(power.worldFocus, (int) (pos.getX() * fraction), (int) (pos.getZ() * fraction));
                             if (level != null) {
-                                player.teleport(power.worldFocus, (int) (player.getBlockX() * fraction) + 0.5, level, (int) (player.getBlockZ() * fraction) + 0.5, player.getYaw(), player.getPitch());
+                                player.teleport(power.worldFocus, (int) (pos.getX() * fraction) + 0.5, level, (int) (pos.getZ() * fraction) + 0.5, player.getYaw(), player.getPitch());
                                 player.fallDistance = 0;
                                 player.onTeleportationDone();
                             }

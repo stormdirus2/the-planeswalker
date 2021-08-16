@@ -10,7 +10,7 @@ sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
 group = rootProject.maven_group
-archivesBaseName = rootProject.name
+archivesBaseName = rootProject.name + ' - ' + rootProject.mod_version
 
 
 repositories {

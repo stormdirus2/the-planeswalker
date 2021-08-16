@@ -35,7 +35,7 @@
   "resource": {
     "type": "origins:resource",
     "min": 0,
-    "max": 25,
+    "max": 35,
     "hud_render": {
       "should_render": true,
       "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
@@ -48,7 +48,8 @@
     },
     "max_action": {
       "type": "theplaneswalker:switch_dimension",
-      "dimension": "theplaneswalker:planewalk_void"
+      "dimension": "theplaneswalker:planewalk_void",
+      "position": "theplaneswalker:planewalk_tether"
     }
   },
   "sync": {
@@ -104,8 +105,18 @@
             "dimension": "theplaneswalker:void"
           },
           "action": {
-            "type": "theplaneswalker:switch_dimension",
-            "dimension": "theplaneswalker:planewalk_void"
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "theplaneswalker:set_position",
+                "position": "theplaneswalker:planewalk_tether"
+              },
+              {
+                "type": "theplaneswalker:switch_dimension",
+                "dimension": "theplaneswalker:planewalk_void",
+                "position": "theplaneswalker:planewalk_tether"
+              }
+            ]
           }
         },
         {
@@ -137,16 +148,7 @@
       ]
     },
     "condition": {
-      "type": "origins:and",
-      "conditions": [
-        {
-          "type": "origins:sneaking"
-        },
-        {
-          "type": "theplaneswalker:is_flying",
-          "inverted": true
-        }
-      ]
+      "type": "origins:sneaking"
     },
     "hud_render": {
       "should_render": false

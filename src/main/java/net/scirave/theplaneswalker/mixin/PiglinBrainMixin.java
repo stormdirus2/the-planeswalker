@@ -17,6 +17,8 @@
 
 package net.scirave.theplaneswalker.mixin;
 
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
@@ -27,7 +29,10 @@ import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Optional;
 
 @Mixin(PiglinBrain.class)
 public abstract class PiglinBrainMixin {
@@ -43,6 +48,16 @@ public abstract class PiglinBrainMixin {
     private static void badReputation2(PiglinEntity piglin, PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if (TCPowers.TARNISHED_REPUTATION.isActive(player)) {
             cir.setReturnValue(ActionResult.PASS);
+        }
+    }
+
+    @Inject(method = "loot", at = @At("HEAD"), cancellable = true)
+    private static void noLoot(PiglinEntity piglin, ItemEntity drop, CallbackInfo ci) {
+        Optional<PlayerEntity> optional = piglin.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
+        if (optional.isPresent()) {
+            if (TCPowers.TARNISHED_REPUTATION.isActive(optional.get())) {
+                ci.cancel();
+            }
         }
     }
 

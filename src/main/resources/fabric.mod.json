@@ -8,8 +8,8 @@
     "SciRave"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/stormdirus2",
+    "sources": "https://github.com/stormdirus2/the-planeswalker"
   },
   "license": "EPL-2.0",
   "icon": "assets/theplaneswalker/icon.png",
@@ -26,9 +26,10 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.17.x",
-    "java": ">=16"
+    "java": ">=16",
+    "origins": ">=1.0.3"
   },
   "suggests": {
-    "bewitchment": "*"
+    "requiem": "*"
   }
 }

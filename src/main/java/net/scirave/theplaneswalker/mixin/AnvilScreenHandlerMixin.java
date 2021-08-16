@@ -38,14 +38,14 @@ public class AnvilScreenHandlerMixin {
             cancellable = true
     )
     public void canAlwaysUse(PlayerEntity player, boolean present, CallbackInfoReturnable<Boolean> cir) {
-        if (TCPowers.MALFORMED_SOUL.isActive(player)) {
+        if (TCPowers.SOULFOOD.isActive(player)) {
             cir.setReturnValue(true);
         }
     }
 
     @Redirect(method = "onTakeOutput", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExperienceLevels(I)V"))
     private void noSubtractLevels(PlayerEntity playerEntity, int levels) {
-        if (!TCPowers.MALFORMED_SOUL.isActive(playerEntity)) {
+        if (!TCPowers.SOULFOOD.isActive(playerEntity)) {
             playerEntity.addExperienceLevels(levels);
         }
     }
@@ -57,7 +57,7 @@ public class AnvilScreenHandlerMixin {
             cancellable = true
     )
     public void noCost(CallbackInfoReturnable<Integer> cir) {
-        if (TCPowers.MALFORMED_SOUL.isActive(MinecraftClient.getInstance().player)) {
+        if (TCPowers.SOULFOOD.isActive(MinecraftClient.getInstance().player)) {
             cir.setReturnValue(0);
         }
     }

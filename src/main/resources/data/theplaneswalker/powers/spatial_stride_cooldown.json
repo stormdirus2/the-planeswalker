@@ -1,6 +1,6 @@
 {
   "type": "origins:cooldown",
-  "cooldown": 120,
+  "cooldown": 80,
   "hud_render": {
     "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
     "bar_index": 2,

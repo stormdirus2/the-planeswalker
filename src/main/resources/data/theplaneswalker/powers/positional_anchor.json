@@ -52,7 +52,7 @@
   },
   "cooldown": {
     "type": "origins:cooldown",
-    "cooldown": 120,
+    "cooldown": 80,
     "hud_render": {
       "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
       "bar_index": 1,
@@ -214,5 +214,5 @@
     }
   },
   "name": "Positional Anchor",
-  "description": "(6s CD) Secondary key while sneaking. Places/removes a tether that the next attacked entity teleports to. Sneaking during the attack teleports the user to the entity's last position."
+  "description": "(4s CD) Secondary key while sneaking. Places/removes a tether that the next attacked entity teleports to. Sneaking during the attack teleports the user to the entity's last position."
 }

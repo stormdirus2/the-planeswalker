@@ -19,6 +19,10 @@ package net.scirave.theplaneswalker.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.player.HungerManager;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -29,6 +33,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -38,10 +43,12 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
     @Shadow
     public abstract boolean isCreative();
 
+    @Shadow public abstract HungerManager getHungerManager();
+
     @Inject(method = "addExperience", at = @At("HEAD"), cancellable = true)
     public void noExperience1(int experience, CallbackInfo ci) {
         if (!this.isCreative()) {
-            if (TCPowers.MALFORMED_SOUL.isActive((PlayerEntity) (Object) this)) {
+            if (TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
                 ci.cancel();
             }
         }
@@ -50,9 +57,16 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
     @Inject(method = "addExperienceLevels", at = @At("HEAD"), cancellable = true)
     public void noExperience2(int experience, CallbackInfo ci) {
         if (!this.isCreative()) {
-            if (TCPowers.MALFORMED_SOUL.isActive((PlayerEntity) (Object) this)) {
+            if (TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
                 ci.cancel();
             }
+        }
+    }
+
+    @Redirect(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/HungerManager;eat(Lnet/minecraft/item/Item;Lnet/minecraft/item/ItemStack;)V"))
+    public void noEat(HungerManager hungerManager, Item item, ItemStack stack) {
+        if (!TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
+            hungerManager.eat(item, stack);
         }
     }
 
