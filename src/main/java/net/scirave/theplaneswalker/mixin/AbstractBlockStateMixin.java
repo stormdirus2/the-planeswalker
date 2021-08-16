@@ -18,7 +18,6 @@
 package net.scirave.theplaneswalker.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
@@ -29,6 +28,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

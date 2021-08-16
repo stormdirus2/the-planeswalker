@@ -17,9 +17,9 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.MilkBucketItem;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

@@ -17,12 +17,12 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

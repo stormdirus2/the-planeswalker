@@ -18,7 +18,6 @@
 package net.scirave.theplaneswalker.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.Camera;
@@ -29,6 +28,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
+import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

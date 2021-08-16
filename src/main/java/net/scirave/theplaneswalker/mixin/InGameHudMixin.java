@@ -17,10 +17,10 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

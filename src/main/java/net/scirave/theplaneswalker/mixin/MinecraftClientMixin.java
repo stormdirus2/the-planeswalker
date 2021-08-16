@@ -17,10 +17,10 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import net.scirave.theplaneswalker.ThePlaneswalker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.MusicSound;
+import net.scirave.theplaneswalker.ThePlaneswalker;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -19,16 +19,14 @@ package net.scirave.theplaneswalker.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.scirave.theplaneswalker.helpers.DummyHungerManager;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,8 +40,6 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 
     @Shadow
     public abstract boolean isCreative();
-
-    @Shadow public abstract HungerManager getHungerManager();
 
     @Inject(method = "addExperience", at = @At("HEAD"), cancellable = true)
     public void noExperience1(int experience, CallbackInfo ci) {
@@ -63,11 +59,12 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
         }
     }
 
-    @Redirect(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/HungerManager;eat(Lnet/minecraft/item/Item;Lnet/minecraft/item/ItemStack;)V"))
-    public void noEat(HungerManager hungerManager, Item item, ItemStack stack) {
-        if (!TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
-            hungerManager.eat(item, stack);
+    @Redirect(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getHungerManager()Lnet/minecraft/entity/player/HungerManager;"))
+    public HungerManager noEat(PlayerEntity playerEntity) {
+        if (TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
+            return DummyHungerManager.INSTANCE;
         }
+        return playerEntity.getHungerManager();
     }
 
     @Override

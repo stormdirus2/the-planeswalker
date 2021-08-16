@@ -20,11 +20,11 @@ package net.scirave.theplaneswalker.origins;
 import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
-import net.scirave.theplaneswalker.ThePlaneswalker;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.scirave.theplaneswalker.ThePlaneswalker;
 
 public class TCEntityConditions {
 

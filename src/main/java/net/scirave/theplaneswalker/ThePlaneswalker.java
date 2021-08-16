@@ -18,15 +18,15 @@
 package net.scirave.theplaneswalker;
 
 import net.fabricmc.api.ModInitializer;
-import net.scirave.theplaneswalker.origins.TCEntityActions;
-import net.scirave.theplaneswalker.origins.TCEntityConditions;
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.item.Item;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+import net.scirave.theplaneswalker.origins.TCEntityActions;
+import net.scirave.theplaneswalker.origins.TCEntityConditions;
+import net.scirave.theplaneswalker.origins.TCPowers;
 
 public class ThePlaneswalker implements ModInitializer {
 

@@ -19,15 +19,15 @@ package net.scirave.theplaneswalker.mixin;
 
 import com.mojang.authlib.GameProfile;
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
-import net.scirave.theplaneswalker.origins.DimensionChangedPower;
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
+import net.scirave.theplaneswalker.origins.DimensionChangedPower;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

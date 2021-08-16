@@ -17,14 +17,14 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import net.minecraft.entity.player.HungerManager;
-import net.scirave.theplaneswalker.origins.TCPowers;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +40,8 @@ public abstract class ExperienceOrbEntityMixin {
     @Shadow
     private PlayerEntity target;
 
-    @Shadow public abstract int getExperienceAmount();
+    @Shadow
+    public abstract int getExperienceAmount();
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;expensiveUpdate()V", shift = At.Shift.AFTER))
     public void noTarget(CallbackInfo ci) {
@@ -70,7 +71,7 @@ public abstract class ExperienceOrbEntityMixin {
                         return;
                     }
                 }
-                hungerManager.add(getExperienceAmount(),0.6F);
+                hungerManager.add(getExperienceAmount(), 0.6F);
             }
         }
     }

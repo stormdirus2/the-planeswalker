@@ -18,13 +18,13 @@
 package net.scirave.theplaneswalker.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
-import net.scirave.theplaneswalker.origins.AttackBlockPower;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket.Action;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
+import net.scirave.theplaneswalker.origins.AttackBlockPower;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

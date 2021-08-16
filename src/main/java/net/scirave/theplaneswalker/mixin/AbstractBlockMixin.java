@@ -18,7 +18,6 @@
 package net.scirave.theplaneswalker.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EntityShapeContext;
@@ -30,6 +29,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = AbstractBlock.class, priority = 999)
 public class AbstractBlockMixin {
+
     @Inject(at = @At("RETURN"), method = "getOutlineShape", cancellable = true)
     private void modifyBlockOutline(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
         if (context instanceof EntityShapeContext) {

@@ -24,16 +24,16 @@ import io.github.apace100.apoli.power.VariableIntPower;
 import io.github.apace100.apoli.power.factory.action.ActionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
-import net.minecraft.util.math.BlockPos;
-import net.scirave.theplaneswalker.ThePlaneswalker;
-import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
-import net.scirave.theplaneswalker.helpers.TeleportHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.scirave.theplaneswalker.ThePlaneswalker;
+import net.scirave.theplaneswalker.helpers.ServerPlayerEntityInterface;
+import net.scirave.theplaneswalker.helpers.TeleportHelper;
 
 public class TCEntityActions {
 

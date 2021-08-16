@@ -20,7 +20,6 @@ package net.scirave.theplaneswalker.mixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ExperienceBottleEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -45,7 +44,7 @@ public abstract class ExperienceBottleEntityMixin extends ThrownEntity {
     public void redirectSpawn(HitResult hitResult, CallbackInfo ci) {
         if (this.getOwner() instanceof ServerPlayerEntity player) {
             if (TCPowers.SOULFOOD.isActive(player)) {
-                ExperienceOrbEntity.spawn((ServerWorld)this.world, this.getPos(), 4);
+                ExperienceOrbEntity.spawn((ServerWorld) this.world, this.getPos(), 4);
                 this.discard();
                 ci.cancel();
             }
