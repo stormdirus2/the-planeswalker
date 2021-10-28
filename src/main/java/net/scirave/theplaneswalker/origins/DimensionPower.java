@@ -37,7 +37,7 @@ public class DimensionPower extends Power {
 
     public DimensionPower(PowerType<?> type, LivingEntity entity, RegistryKey<World> key) {
         super(type, entity);
-        if (entity.world.isClient) {
+        if (entity == null || entity.world.isClient) {
             return;
         }
         MinecraftServer server = entity.world.getServer();
