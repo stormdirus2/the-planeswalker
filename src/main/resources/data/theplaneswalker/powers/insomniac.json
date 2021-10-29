@@ -1,0 +1,23 @@
+{
+  "type": "origins:action_on_wake_up",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:feed",
+        "food": -20,
+        "saturation": 0
+      },
+      {
+        "type": "origins:apply_effect",
+        "effect": {
+          "effect": "minecraft:weakness",
+          "duration": 3600,
+          "amplifier": 1
+        }
+      }
+    ]
+  },
+  "name": "Insomniac",
+  "description": "Sleeping does not stave off phantoms. You are severely weakened after resting."
+}

@@ -1,0 +1,11 @@
+{
+  "type": "origins:effect_immunity",
+  "effects": [
+    "minecraft:instant_health",
+    "minecraft:regeneration",
+    "minecraft:health_boost",
+    "minecraft:absorption"
+  ],
+  "name": "Corrupted Blood",
+  "description": "You are immune to vanilla medicine. Milk does not cure potion effects."
+}

@@ -1,0 +1,14 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+    "type": "origins:name",
+    "name": "mob"
+  },
+  "condition": {
+    "type": "origins:resource",
+    "resource": "theplaneswalker:phaseshift_onoff",
+    "comparison": "==",
+    "compare_to": 1
+  },
+  "hidden": true
+}

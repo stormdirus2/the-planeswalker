@@ -1,0 +1,159 @@
+{
+  "type": "origins:multiple",
+  "void": {
+    "type": "theplaneswalker:dimension",
+    "dimension": "theplaneswalker:void"
+  },
+  "tether": {
+    "type": "theplaneswalker:position"
+  },
+  "teleporting": {
+    "type": "theplaneswalker:on_teleport",
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:planewalk_onoff",
+      "change": -1
+    }
+  },
+  "onoff": {
+    "type": "origins:resource",
+    "min": 0,
+    "max": 1,
+    "hud_render": {
+      "should_render": false
+    }
+  },
+  "onhurt": {
+    "type": "origins:self_action_when_hit",
+    "cooldown": 0,
+    "entity_action": {
+      "type": "origins:change_resource",
+      "resource": "theplaneswalker:planewalk_onoff",
+      "change": -1
+    }
+  },
+  "resource": {
+    "type": "origins:resource",
+    "min": 0,
+    "max": 35,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "theplaneswalker:textures/gui/resource_bar.png",
+      "condition": {
+        "type": "origins:resource",
+        "resource": "theplaneswalker:planewalk_onoff",
+        "comparison": "==",
+        "compare_to": 1
+      }
+    },
+    "max_action": {
+      "type": "theplaneswalker:switch_dimension",
+      "dimension": "theplaneswalker:planewalk_void",
+      "position": "theplaneswalker:planewalk_tether"
+    }
+  },
+  "sync": {
+    "type": "origins:action_over_time",
+    "interval": 2,
+    "condition": {
+      "type": "origins:resource",
+      "resource": "theplaneswalker:planewalk_onoff",
+      "comparison": "==",
+      "compare_to": 1
+    },
+    "entity_action": {
+      "type": "theplaneswalker:sync_resource_position",
+      "position": "theplaneswalker:planewalk_tether",
+      "resource": "theplaneswalker:planewalk_resource"
+    }
+  },
+  "use": {
+    "type": "origins:active_self",
+    "cooldown": 0,
+    "entity_action": {
+      "type": "origins:if_else_list",
+      "actions": [
+        {
+          "condition": {
+            "type": "origins:resource",
+            "resource": "theplaneswalker:phaseshift_onoff",
+            "comparison": "==",
+            "compare_to": 1
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:phaseshift_onoff",
+            "change": -1
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:resource",
+            "resource": "theplaneswalker:planewalk_onoff",
+            "comparison": "==",
+            "compare_to": 1
+          },
+          "action": {
+            "type": "origins:change_resource",
+            "resource": "theplaneswalker:planewalk_onoff",
+            "change": -1
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:dimension",
+            "dimension": "theplaneswalker:void"
+          },
+          "action": {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "theplaneswalker:set_position",
+                "position": "theplaneswalker:planewalk_tether"
+              },
+              {
+                "type": "theplaneswalker:switch_dimension",
+                "dimension": "theplaneswalker:planewalk_void",
+                "position": "theplaneswalker:planewalk_tether"
+              }
+            ]
+          }
+        },
+        {
+          "condition": {
+            "type": "origins:fall_distance",
+            "comparison": "<",
+            "compare_to": 4
+          },
+          "action": {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "theplaneswalker:planewalk_onoff",
+                "change": 1
+              },
+              {
+                "type": "theplaneswalker:set_position",
+                "position": "theplaneswalker:planewalk_tether"
+              },
+              {
+                "type": "theplaneswalker:sync_resource_position",
+                "resource": "theplaneswalker:planewalk_resource",
+                "position": "theplaneswalker:planewalk_tether"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "condition": {
+      "type": "origins:sneaking"
+    },
+    "hud_render": {
+      "should_render": false
+    }
+  },
+  "name": "Planewalk",
+  "description": "Main key while sneaking. Places/removes a tether that transports the user to and from the Void dimension when moving a certain distance away."
+}

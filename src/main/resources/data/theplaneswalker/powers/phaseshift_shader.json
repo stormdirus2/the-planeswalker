@@ -1,0 +1,11 @@
+{
+  "type": "origins:shader",
+  "shader": "theplaneswalker:shaders/post/drag.json",
+  "condition": {
+    "type": "origins:resource",
+    "resource": "theplaneswalker:phaseshift_onoff",
+    "comparison": "==",
+    "compare_to": 1
+  },
+  "hidden": true
+}
