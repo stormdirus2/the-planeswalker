@@ -1,5 +1,5 @@
 {
   "type": "origins:simple",
   "name": "Soulfood",
-  "description": "Food does not give you nutrition. You are unable to gain experience, but instead feast on it. You can create Bottles o' Enchanting by using glass bottles. Mending still works and anvils do not require levels."
+  "description": "Food does not give you nutrition and you only get 25% as much experience. You consume experience orbs for nutrition and you only gain experience from them at full hunger. You can create Bottles o' Enchanting by using glass bottles. You cannot do enchanting, but anvils do not require levels."
 }

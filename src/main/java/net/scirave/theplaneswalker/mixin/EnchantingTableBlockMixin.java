@@ -18,31 +18,27 @@
 package net.scirave.theplaneswalker.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.EnchantingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
 import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PersistentProjectileEntity.class)
-public class PersistentProjectileEntityMixin {
+@Mixin(EnchantingTableBlock.class)
+public class EnchantingTableBlockMixin {
 
-    private static final BlockState AIR_STATE = Blocks.AIR.getDefaultState();
-
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"))
-    public BlockState redirectedMethod(World world, BlockPos pos) {
-        for (PlayerEntity plr : world.getPlayers()) {
-            ActivatedPositionPower power = (ActivatedPositionPower) TCPowers.DIMENSIONAL_RIFT.get(plr);
-            if (power != null && power.isActive() && pos.getManhattanDistance(power.pos) <= power.range) {
-                return AIR_STATE;
-            }
+    @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
+    public void noSeeEnchanting(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+        if (TCPowers.SOULFOOD.isActive(player)) {
+            cir.setReturnValue(ActionResult.PASS);
         }
-        return world.getBlockState(pos);
     }
 
 }

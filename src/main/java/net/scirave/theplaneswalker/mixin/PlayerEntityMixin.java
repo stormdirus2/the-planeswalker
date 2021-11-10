@@ -28,9 +28,9 @@ import net.minecraft.util.Hand;
 import net.scirave.theplaneswalker.helpers.DummyHungerManager;
 import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -38,25 +38,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntityMixin {
 
-    @Shadow
-    public abstract boolean isCreative();
+    @ModifyVariable(method = "addExperience", at = @At("HEAD"), index = 1)
+    private int noExperience1(int experience) {
 
-    @Inject(method = "addExperience", at = @At("HEAD"), cancellable = true)
-    public void noExperience1(int experience, CallbackInfo ci) {
-        if (!this.isCreative()) {
+        if (experience > 0) {
             if (TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
-                ci.cancel();
+                return Math.max(experience / 4, 1);
             }
         }
-    }
 
-    @Inject(method = "addExperienceLevels", at = @At("HEAD"), cancellable = true)
-    public void noExperience2(int experience, CallbackInfo ci) {
-        if (!this.isCreative()) {
-            if (TCPowers.SOULFOOD.isActive((PlayerEntity) (Object) this)) {
-                ci.cancel();
-            }
-        }
+        return experience;
     }
 
     @Redirect(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getHungerManager()Lnet/minecraft/entity/player/HungerManager;"))

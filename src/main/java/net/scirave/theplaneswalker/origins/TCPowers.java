@@ -41,6 +41,8 @@ public class TCPowers {
 
     public static final PowerType<?> PHASESHIFT = new PowerTypeReference<>(new Identifier(ThePlaneswalker.MODID, "phaseshift_drain"));
 
+    public static final PowerType<?> DIMENSIONAL_RIFT = new PowerTypeReference<>(new Identifier(ThePlaneswalker.MODID, "dimensional_rift_tether"));
+
     public static final PowerType<?> SOULFOOD = new PowerTypeReference<>(new Identifier(ThePlaneswalker.MODID, "soulfood"));
 
     public static final PowerType<?> OVERSPECIALIZATION = new PowerTypeReference<>(new Identifier(ThePlaneswalker.MODID, "overspecialization"));

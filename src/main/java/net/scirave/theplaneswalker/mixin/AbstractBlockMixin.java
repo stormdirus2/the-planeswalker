@@ -17,19 +17,20 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EntityShapeContext;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,8 +44,12 @@ public class AbstractBlockMixin {
         if (context instanceof EntityShapeContext) {
             if (((EntityShapeContext) context).getEntity().isPresent()) {
                 Entity entity = ((EntityShapeContext) context).getEntity().get();
-                if (entity.world.getPlayers().stream().anyMatch(plr -> PowerHolderComponent.getPowers(plr, ActivatedPositionPower.class).stream().anyMatch(p -> p.pos.getManhattanDistance(pos) <= p.range))) {
-                    cir.setReturnValue(VoxelShapes.empty());
+                for (PlayerEntity plr : entity.world.getPlayers()) {
+                    ActivatedPositionPower power = (ActivatedPositionPower) TCPowers.DIMENSIONAL_RIFT.get(plr);
+                    if (power != null && power.isActive() && pos.getManhattanDistance(power.pos) <= power.range) {
+                        cir.setReturnValue(VoxelShapes.empty());
+                        return;
+                    }
                 }
             }
         }
@@ -52,9 +57,13 @@ public class AbstractBlockMixin {
 
     @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
     private void allowPathfinding(BlockState state, BlockView world, BlockPos pos, NavigationType type, CallbackInfoReturnable<Boolean> cir) {
-        if (world instanceof World) {
-            if (((World) world).getPlayers().stream().anyMatch(plr -> PowerHolderComponent.getPowers(plr, ActivatedPositionPower.class).stream().anyMatch(p -> p.pos.getManhattanDistance(pos) <= p.range))) {
-                cir.setReturnValue(true);
+        if (world instanceof World actualWorld) {
+            for (PlayerEntity plr : actualWorld.getPlayers()) {
+                ActivatedPositionPower power = (ActivatedPositionPower) TCPowers.DIMENSIONAL_RIFT.get(plr);
+                if (power != null && power.isActive() && pos.getManhattanDistance(power.pos) <= power.range) {
+                    cir.setReturnValue(true);
+                    return;
+                }
             }
         }
     }

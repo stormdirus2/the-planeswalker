@@ -8,6 +8,8 @@
     "AbstractBlockStateMixin",
     "AdmireItemTaskMixin",
     "AnvilScreenHandlerMixin",
+    "EnchantingTableBlockMixin",
+    "EnchantmentScreenHandlerMixin",
     "EntityMixin",
     "ExperienceBottleEntityMixin",
     "ExperienceOrbEntityMixin",

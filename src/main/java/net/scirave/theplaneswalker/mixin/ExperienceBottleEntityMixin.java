@@ -44,7 +44,7 @@ public abstract class ExperienceBottleEntityMixin extends ThrownEntity {
     public void redirectSpawn(HitResult hitResult, CallbackInfo ci) {
         if (this.getOwner() instanceof ServerPlayerEntity player) {
             if (TCPowers.SOULFOOD.isActive(player)) {
-                ExperienceOrbEntity.spawn((ServerWorld) this.world, this.getPos(), 4);
+                ExperienceOrbEntity.spawn((ServerWorld) this.world, this.getPos(), 6);
                 this.discard();
                 ci.cancel();
             }

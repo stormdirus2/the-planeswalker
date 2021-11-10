@@ -17,7 +17,6 @@
 
 package net.scirave.theplaneswalker.mixin;
 
-import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -25,6 +24,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.scirave.theplaneswalker.origins.ActivatedPositionPower;
+import net.scirave.theplaneswalker.origins.TCPowers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,9 +38,14 @@ public abstract class EntityMixin {
     @Shadow
     public World world;
 
+    private static final FluidState EMPTY = Fluids.EMPTY.getDefaultState();
+
     public FluidState method(World world, BlockPos pos) {
-        if (world.getPlayers().stream().anyMatch(plr -> PowerHolderComponent.getPowers(plr, ActivatedPositionPower.class).stream().anyMatch(p -> p.pos.getManhattanDistance(pos) <= p.range))) {
-            return Fluids.EMPTY.getDefaultState();
+        for (PlayerEntity plr : world.getPlayers()) {
+            ActivatedPositionPower power = (ActivatedPositionPower) TCPowers.DIMENSIONAL_RIFT.get(plr);
+            if (power != null && power.isActive() && pos.getManhattanDistance(power.pos) <= power.range) {
+                return EMPTY;
+            }
         }
         return world.getFluidState(pos);
     }
